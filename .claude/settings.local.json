@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(npm install:*)",
+      "Bash(./gradlew build:*)",
+      "Bash(npx tsc:*)",
+      "Bash(gradle wrapper:*)",
+      "Bash(xargs grep:*)",
+      "Bash(node:*)",
+      "Bash(\"C:/Program Files/nodejs/node.exe\":*)",
+      "Bash(npm run:*)",
+      "mcp__minecraft-mcp__get_players",
+      "mcp__minecraft-mcp__read_blocks",
+      "mcp__minecraft-mcp__set_blocks",
+      "mcp__minecraft-mcp__send_chat",
+      "mcp__minecraft-mcp__get_entities",
+      "mcp__minecraft-mcp__run_command"
+    ]
+  }
+}

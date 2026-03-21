@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "minecraft": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": ["C:\\Users\\janne\\minecraft-mcp\\mcp-server\\dist\\index.js"]
+    }
+  }
+}
