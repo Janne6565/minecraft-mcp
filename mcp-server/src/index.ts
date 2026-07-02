@@ -1,6 +1,5 @@
-import express from "express";
-import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { readBlocks, readBlocksSchema } from "./tools/read-blocks.js";
 import { setBlocks, setBlocksSchema } from "./tools/set-blocks.js";
 import { getPlayers, getPlayersSchema } from "./tools/get-players.js";
@@ -12,8 +11,6 @@ import {
   readChatSchema,
 } from "./tools/chat.js";
 import { runCommand, runCommandSchema } from "./tools/run-command.js";
-
-const MCP_PORT = parseInt(process.env.MCP_PORT ?? "3001");
 
 const BUILDING_GUIDE = `# Minecraft MCP Building Guide
 
@@ -224,34 +221,9 @@ Use @p for nearest player, @a for all players, @r for random player, or a specif
 }
 
 async function main() {
-  const app = express();
-  const transports: Map<string, SSEServerTransport> = new Map();
-
-  app.get("/sse", async (req, res) => {
-    const transport = new SSEServerTransport("/messages", res);
-    transports.set(transport.sessionId, transport);
-
-    res.on("close", () => {
-      transports.delete(transport.sessionId);
-    });
-
-    const server = createServer();
-    await server.connect(transport);
-  });
-
-  app.post("/messages", async (req, res) => {
-    const sessionId = req.query.sessionId as string;
-    const transport = transports.get(sessionId);
-    if (!transport) {
-      res.status(400).send("Unknown session");
-      return;
-    }
-    await transport.handlePostMessage(req, res);
-  });
-
-  app.listen(MCP_PORT, () => {
-    console.log(`Minecraft MCP server running at http://localhost:${MCP_PORT}/sse`);
-  });
+  const server = createServer();
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
 }
 
 main().catch(console.error);

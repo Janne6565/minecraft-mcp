@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blockworks
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Janne6565/minecraft-mcp.git
+    targetRevision: master
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: blockworks
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

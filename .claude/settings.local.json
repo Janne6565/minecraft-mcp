@@ -15,7 +15,17 @@
       "mcp__minecraft-mcp__set_blocks",
       "mcp__minecraft-mcp__send_chat",
       "mcp__minecraft-mcp__get_entities",
-      "mcp__minecraft-mcp__run_command"
+      "mcp__minecraft-mcp__run_command",
+      "mcp__claude_ai_Google_Drive__search_files",
+      "Bash(python3:*)",
+      "Bash(ls:*)",
+      "Bash(do:*)",
+      "Bash(curl -s -X POST http://localhost:4711/blocks/read -H \"Content-Type: application/json\" -d '{\"from\":{\"x\":-58,\"y\":-61,\"z\":61},\"to\":{\"x\":-58,\"y\":-61,\"z\":61}}')",
+      "Bash(echo \"---EXIT:$?---\")",
+      "Bash(bun --version)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "minecraft-mcp"
+  ]
 }

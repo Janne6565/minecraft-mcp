@@ -1,0 +1,1 @@
+Hi, can you have a look at my minecraft mcp server and build a cosy little house around the coordinates of the player _jannox? Please try not to interfere with other buildings and make it look nice and add some cool features to it. Also feel free to add simple redstone contraptions to it. (please try not to read to many blocks at once, try to limit to max 8x8x2 blocks)

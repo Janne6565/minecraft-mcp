@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "minecraft-mcp": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "C:\\Users\\janne\\minecraft-mcp\\mcp-server\\dist\\index.js"
+      ],
+      "env": {}
+    }
+  }
+}

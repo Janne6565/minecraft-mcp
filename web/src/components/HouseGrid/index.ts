@@ -1,0 +1,1 @@
+export { HouseGrid } from './HouseGrid';
