@@ -18,7 +18,7 @@ spec:
         - name: ghcr-pull-secret
       containers:
         - name: blockworks
-          image: ghcr.io/janne6565/blockworks:master-0f27abb
+          image: ghcr.io/janne6565/blockworks:master-e7118e1
           ports:
             - containerPort: 80
           resources:
