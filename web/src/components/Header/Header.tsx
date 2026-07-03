@@ -1,8 +1,11 @@
+import { useNavigate } from '@tanstack/react-router';
 import { useAppDispatch } from '@/store/hooks';
-import { goHome } from '@/store/showcaseSlice';
+import { clearSelection } from '@/store/showcaseSlice';
 
 export function Header() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const goHome = () => { dispatch(clearSelection()); void navigate({ to: '/' }); };
   return (
     <div
       className="sticky top-0 z-10 border-b-2"
@@ -10,10 +13,10 @@ export function Header() {
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         <div
-          onClick={() => dispatch(goHome())}
+          onClick={goHome}
           role="button"
           tabIndex={0}
-          onKeyDown={e => { if (e.key === 'Enter') dispatch(goHome()); }}
+          onKeyDown={e => { if (e.key === 'Enter') goHome(); }}
           style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', width: 'fit-content' }}
         >
           <div

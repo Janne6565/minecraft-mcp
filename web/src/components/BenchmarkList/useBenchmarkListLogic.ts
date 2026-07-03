@@ -1,5 +1,4 @@
-import { useAppDispatch } from '@/store/hooks';
-import { openTest } from '@/store/showcaseSlice';
+import { useNavigate } from '@tanstack/react-router';
 import { TESTS, housesForTest, stripeGradient, type BenchmarkTest } from '@/lib/houseData';
 
 export interface BenchmarkCard extends BenchmarkTest {
@@ -9,7 +8,7 @@ export interface BenchmarkCard extends BenchmarkTest {
 }
 
 export function useBenchmarkListLogic() {
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const cards: BenchmarkCard[] = TESTS.map(t => {
     const live = t.status === 'live';
@@ -17,7 +16,9 @@ export function useBenchmarkListLogic() {
       ...t,
       thumbGradient: stripeGradient(t.accent, t.accentSoft),
       buildCount: housesForTest(t.id).length,
-      onClick: live ? () => { dispatch(openTest(t.id)); } : null,
+      onClick: live
+        ? () => { void navigate({ to: '/benchmark/$testId', params: { testId: t.id } }); }
+        : null,
     };
   });
 

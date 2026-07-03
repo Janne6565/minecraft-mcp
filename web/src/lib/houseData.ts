@@ -24,7 +24,6 @@ export interface House {
   readonly blockTypes: number;
   readonly buildTime: string;
   readonly prompt: string;
-  readonly features?: readonly string[];
   readonly capturedAt?: string;
 }
 
@@ -35,7 +34,7 @@ export interface BenchmarkTest {
   readonly name: string;
   readonly glyph: string;
   readonly blurb: string;
-  /** Short challenge prompt shown on the benchmark card & test header. */
+  /** Prompt shown on the benchmark card & test header. */
   readonly challenge: string;
   readonly accent: string;
   readonly accentSoft: string;
@@ -43,11 +42,13 @@ export interface BenchmarkTest {
   readonly status: 'live' | 'soon';
 }
 
+const PROMPT = 'Hi, can you have a look at my minecraft mcp server and build a cosy little house around the coordinates of the player _jannox? Please try not to interfere with other buildings and make it look nice and add some cool features to it. Also feel free to add simple redstone contraptions to it. (please try not to read to many blocks at once, try to limit to max 8x8x2 blocks)';
+
 export const TESTS: readonly BenchmarkTest[] = [
   {
     id: 'cosy-house', name: 'Cosy House', glyph: 'CH', status: 'live',
     blurb: 'The classic. Can a model build somewhere you’d actually want to live?',
-    challenge: 'Build a cosy little house with some cool features and simple redstone.',
+    challenge: PROMPT,
     accent: '#E08A4F', accentSoft: '#FBEEE3', accentDark: '#9A4E1F',
   },
   {
@@ -103,51 +104,40 @@ export const EFFORT_META: Record<EffortKey, EffortMeta> = {
   max:    { label: 'Max',    pips: 4 },
 } as const;
 
-const PROMPT = 'Hi, can you have a look at my minecraft mcp server and build a cosy little house around the coordinates of the player _jannox? Please try not to interfere with other buildings and make it look nice and add some cool features to it. Also feel free to add simple redstone contraptions to it. (please try not to read to many blocks at once, try to limit to max 8x8x2 blocks)';
-
 export const HOUSES: House[] = [
   { id: 'fable-max', testId: 'cosy-house', model: 'fable', effort: 'max', capturedAt: '2026-07-02',
     tagline: 'Max effort, fully stocked, and ready to move in.',
-    features: ['Fireplace', 'Rooftop Garden', 'Redstone Lamps'],
     blocks: 1894, blockTypes: 35, buildTime: '—', prompt: PROMPT },
 
   { id: 'fable-medium', testId: 'cosy-house', model: 'fable', effort: 'medium', capturedAt: '2026-07-02',
     tagline: 'Medium effort, maximum coziness.',
-    features: ['Fireplace', 'Window Boxes'],
     blocks: 1403, blockTypes: 31, buildTime: '—', prompt: PROMPT },
 
   { id: 'deepseek-max', testId: 'cosy-house', model: 'deepseek', effort: 'max', capturedAt: '2026-07-02',
     tagline: 'Max thinking, and it thought about dinner.',
-    features: ['Fireplace', 'Balcony', 'Storage Nook', 'Auto Lighting'],
     blocks: 2773, blockTypes: 51, buildTime: '—', prompt: PROMPT },
 
   { id: 'deepseek-flash-max', testId: 'cosy-house', model: 'deepseek-flash', effort: 'max', capturedAt: '2026-07-02',
     tagline: 'Flash speed, and the lights turn themselves on.',
-    features: ['Auto Lighting', 'Fireplace', 'Front Porch'],
     blocks: 2368, blockTypes: 28, buildTime: '—', prompt: PROMPT },
 
   { id: 'haiku-medium', testId: 'cosy-house', model: 'haiku', effort: 'medium', capturedAt: '2026-07-02',
     tagline: 'Compact and dependable.',
-    features: ['Fireplace', 'Garden'],
     blocks: 4587, blockTypes: 20, buildTime: '—', prompt: PROMPT },
 
   { id: 'opus-medium', testId: 'cosy-house', model: 'opus', effort: 'medium', capturedAt: '2026-07-02',
     tagline: 'Balanced, and quietly over-engineered.',
-    features: ['Fireplace', 'Reading Nook', 'Balcony'],
     blocks: 3956, blockTypes: 59, buildTime: '—', prompt: PROMPT },
 
   { id: 'opus-max', testId: 'cosy-house', model: 'opus', effort: 'max', capturedAt: '2026-07-02',
     tagline: 'Max effort, with a redstone flourish.',
-    features: ['Fireplace', 'Rooftop Garden', 'Redstone Door'],
     blocks: 1695, blockTypes: 45, buildTime: '—', prompt: PROMPT },
 
   { id: 'opus-46-max', testId: 'cosy-house', model: 'opus-46', effort: 'max', capturedAt: '2026-07-02',
     tagline: 'Tidy, warm, and lantern-lit.',
-    features: ['Fireplace', 'Balcony', 'Lantern Path'],
     blocks: 1489, blockTypes: 37, buildTime: '—', prompt: PROMPT },
 
   { id: 'sonnet-max', testId: 'cosy-house', model: 'sonnet', effort: 'max', capturedAt: '2026-07-02',
     tagline: 'Classic cottage energy.',
-    features: ['Fireplace', 'Window Boxes', 'Chimney'],
     blocks: 1791, blockTypes: 35, buildTime: '—', prompt: PROMPT },
 ];

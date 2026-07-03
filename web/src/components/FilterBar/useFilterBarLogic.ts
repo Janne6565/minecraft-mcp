@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setModelFilter, setEffortFilter } from '@/store/showcaseSlice';
 import { MODEL_META, EFFORT_META, housesForTest, type ModelKey, type EffortKey } from '@/lib/houseData';
+import { useTestId } from '@/lib/routing';
 
 const ACTIVE_BG = '#5B8C3E';
 const ACTIVE_BORDER = '#5B8C3E';
@@ -21,7 +22,7 @@ const EFFORT_ORDER: EffortKey[] = ['max', 'high', 'medium', 'low'];
 
 export function useFilterBarLogic() {
   const dispatch = useAppDispatch();
-  const testId = useAppSelector(s => s.showcase.testId);
+  const testId = useTestId();
   const modelFilter = useAppSelector(s => s.showcase.modelFilter);
   const effortFilter = useAppSelector(s => s.showcase.effortFilter);
 

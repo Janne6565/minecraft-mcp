@@ -1,16 +1,13 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { ModelKey, EffortKey, TestKey } from '@/lib/houseData';
+import type { ModelKey, EffortKey } from '@/lib/houseData';
 
 interface ShowcaseState {
-  /** Which benchmark test is open, or null for the benchmark home. */
-  readonly testId: TestKey | null;
   readonly selectedId: string | null;
   readonly modelFilter: ModelKey | 'all';
   readonly effortFilter: EffortKey | 'all';
 }
 
 const initialState: ShowcaseState = {
-  testId: null,
   selectedId: null,
   modelFilter: 'all',
   effortFilter: 'all',
@@ -20,16 +17,6 @@ export const showcaseSlice = createSlice({
   name: 'showcase',
   initialState,
   reducers: {
-    openTest(state, action: PayloadAction<TestKey>) {
-      state.testId = action.payload;
-      state.selectedId = null;
-      state.modelFilter = 'all';
-      state.effortFilter = 'all';
-    },
-    goHome(state) {
-      state.testId = null;
-      state.selectedId = null;
-    },
     selectHouse(state, action: PayloadAction<string>) {
       state.selectedId = action.payload;
     },
@@ -42,9 +29,15 @@ export const showcaseSlice = createSlice({
     setEffortFilter(state, action: PayloadAction<EffortKey | 'all'>) {
       state.effortFilter = action.payload;
     },
+    /** Reset filters and clear any open build when a benchmark route is (re)entered. */
+    resetTestView(state) {
+      state.modelFilter = 'all';
+      state.effortFilter = 'all';
+      state.selectedId = null;
+    },
   },
 });
 
 export const {
-  openTest, goHome, selectHouse, clearSelection, setModelFilter, setEffortFilter,
+  selectHouse, clearSelection, setModelFilter, setEffortFilter, resetTestView,
 } = showcaseSlice.actions;

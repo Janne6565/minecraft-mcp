@@ -55,7 +55,6 @@ function InfoPanel({ house, mm, em, pips }: {
       </div>
 
       <StatsRow house={house} />
-      {house.features && house.features.length > 0 && <FeatureList features={house.features} />}
       <PromptBox prompt={house.prompt} />
     </div>
   );
@@ -65,21 +64,6 @@ function ModelTag({ mm }: { readonly mm: { label: string; accent: string; accent
   return (
     <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, fontWeight: 600, letterSpacing: 0.5, padding: '4px 9px', borderRadius: 5, background: mm.accentSoft, color: mm.accentDark, border: `1px solid ${mm.accent}` }}>
       {mm.label}
-    </div>
-  );
-}
-
-function FeatureList({ features }: { readonly features: readonly string[] }) {
-  return (
-    <div>
-      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, textTransform: 'uppercase', letterSpacing: 1, color: '#948d75', marginBottom: 8 }}>Features</div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-        {features.map(f => (
-          <div key={f} style={{ fontSize: 12.5, fontWeight: 600, padding: '6px 11px', borderRadius: 6, background: '#efe9d9', color: '#5c5640', border: '1px solid #e0d8bf' }}>
-            {f}
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

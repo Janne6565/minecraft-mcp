@@ -1,10 +1,11 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { selectHouse } from '@/store/showcaseSlice';
 import { housesForTest } from '@/lib/houseData';
+import { useTestId } from '@/lib/routing';
 
 export function useHouseGridLogic() {
   const dispatch = useAppDispatch();
-  const testId = useAppSelector(s => s.showcase.testId);
+  const testId = useTestId();
   const modelFilter = useAppSelector(s => s.showcase.modelFilter);
   const effortFilter = useAppSelector(s => s.showcase.effortFilter);
 
