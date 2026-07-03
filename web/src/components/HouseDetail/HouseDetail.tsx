@@ -44,22 +44,42 @@ function InfoPanel({ house, mm, em, pips }: {
       <div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 10 }}>
           <ModelTag mm={mm} />
-          <PipRow pips={pips} effortLabel={em.label} size={8} />
+          <PipRow pips={pips} effortLabel={`${em.label} Effort`} size={8} />
+          <div style={{ fontSize: 11, color: '#948d75', background: '#f0ebdd', padding: '4px 9px', borderRadius: 5, fontWeight: 600 }}>
+            {house.testName}
+          </div>
         </div>
-        <div style={{ fontSize: 26, fontWeight: 800, color: '#2b2718', lineHeight: 1.15 }}>{mm.label}</div>
-        <div style={{ fontSize: 13.5, color: '#8a8468', marginTop: 6 }}>{house.tagline}</div>
+        <div style={{ fontSize: 26, fontWeight: 800, color: '#2b2718', lineHeight: 1.15 }}>
+          {mm.label} · {em.label} Effort
+        </div>
       </div>
 
       <StatsRow house={house} />
+      {house.features && house.features.length > 0 && <FeatureList features={house.features} />}
       <PromptBox prompt={house.prompt} />
     </div>
   );
 }
 
-function ModelTag({ mm }: { readonly mm: { tag: string; accent: string; accentSoft: string; accentDark: string } }) {
+function ModelTag({ mm }: { readonly mm: { label: string; accent: string; accentSoft: string; accentDark: string } }) {
   return (
     <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, fontWeight: 600, letterSpacing: 0.5, padding: '4px 9px', borderRadius: 5, background: mm.accentSoft, color: mm.accentDark, border: `1px solid ${mm.accent}` }}>
-      {mm.tag}
+      {mm.label}
+    </div>
+  );
+}
+
+function FeatureList({ features }: { readonly features: readonly string[] }) {
+  return (
+    <div>
+      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, textTransform: 'uppercase', letterSpacing: 1, color: '#948d75', marginBottom: 8 }}>Features</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {features.map(f => (
+          <div key={f} style={{ fontSize: 12.5, fontWeight: 600, padding: '6px 11px', borderRadius: 6, background: '#efe9d9', color: '#5c5640', border: '1px solid #e0d8bf' }}>
+            {f}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -95,7 +115,7 @@ function StatCell({ value, label }: { readonly value: string; readonly label: st
 function PromptBox({ prompt }: { readonly prompt: string }) {
   return (
     <div>
-      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, textTransform: 'uppercase', letterSpacing: 1, color: '#948d75', marginBottom: 8 }}>Prompt Used</div>
+      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, textTransform: 'uppercase', letterSpacing: 1, color: '#948d75', marginBottom: 8 }}>Test Prompt</div>
       <div style={{ background: '#241f18', color: '#c9e4a8', fontFamily: "'JetBrains Mono', monospace", fontSize: 13, borderRadius: 8, padding: '12px 14px', lineHeight: 1.5 }}>
         &gt; {prompt}
       </div>

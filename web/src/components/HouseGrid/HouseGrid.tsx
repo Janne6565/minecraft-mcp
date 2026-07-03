@@ -8,9 +8,7 @@ export function HouseGrid() {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fill, minmax(268px, 1fr))',
       gap: 24,
-      padding: '20px 32px 64px',
-      maxWidth: 1440,
-      margin: '0 auto',
+      paddingTop: 20,
       width: '100%',
     }}>
       {filteredHouses.map(house => (

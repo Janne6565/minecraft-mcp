@@ -41,30 +41,25 @@ export function HouseCard({ house, onClick }: HouseCardProps) {
       <div style={{ height: 150, borderBottom: '2px solid #e9e2d0', pointerEvents: 'none' }}>
         <MiniVoxelViewer model={house.model} effort={house.effort} />
       </div>
-      <CardBody house={house} mm={mm} em={em} pips={pips} />
+      <CardBody mm={mm} em={em} pips={pips} />
     </div>
   );
 }
 
-function CardBody({ house, mm, em, pips }: {
-  readonly house: House;
+function CardBody({ mm, em, pips }: {
   readonly mm: typeof MODEL_META[keyof typeof MODEL_META];
   readonly em: typeof EFFORT_META[keyof typeof EFFORT_META];
   readonly pips: readonly string[];
 }) {
   return (
-    <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
-      <div>
-        <div style={{ fontSize: 16, fontWeight: 800, color: '#2b2718' }}>{mm.label}</div>
-        <div style={{ fontSize: 12.5, color: '#8a8468', marginTop: 3, lineHeight: 1.4 }}>{house.tagline}</div>
-      </div>
+    <div style={{ padding: '14px 16px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
         <div style={{
           fontFamily: "'JetBrains Mono', monospace", fontSize: 11, fontWeight: 600,
           letterSpacing: 0.5, padding: '3px 8px', borderRadius: 5,
           background: mm.accentSoft, color: mm.accentDark, border: `1px solid ${mm.accent}`,
         }}>
-          {mm.tag}
+          {mm.label}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           {pips.map((color, i) => (

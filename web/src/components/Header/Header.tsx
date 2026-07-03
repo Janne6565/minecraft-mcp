@@ -1,11 +1,21 @@
+import { useAppDispatch } from '@/store/hooks';
+import { goHome } from '@/store/showcaseSlice';
+
 export function Header() {
+  const dispatch = useAppDispatch();
   return (
     <div
       className="sticky top-0 z-10 border-b-2"
       style={{ background: '#fffdf8', borderColor: '#e6dfcd', padding: '18px 32px' }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div
+          onClick={() => dispatch(goHome())}
+          role="button"
+          tabIndex={0}
+          onKeyDown={e => { if (e.key === 'Enter') dispatch(goHome()); }}
+          style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', width: 'fit-content' }}
+        >
           <div
             style={{
               width: 28, height: 28, borderRadius: 4,
@@ -23,7 +33,7 @@ export function Header() {
           </div>
         </div>
         <div style={{ fontSize: 13, color: '#7a7460', marginLeft: 40 }}>
-          AI Build Showcase — 12 houses · 4 models · 3 effort levels
+          AI Build Benchmarks — same prompt, every model, head to head
         </div>
       </div>
     </div>

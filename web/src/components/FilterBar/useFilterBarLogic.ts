@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setModelFilter, setEffortFilter } from '@/store/showcaseSlice';
-import type { ModelKey, EffortKey } from '@/lib/houseData';
+import { MODEL_META, EFFORT_META, housesForTest, type ModelKey, type EffortKey } from '@/lib/houseData';
 
 const ACTIVE_BG = '#5B8C3E';
 const ACTIVE_BORDER = '#5B8C3E';
@@ -15,37 +15,36 @@ function chipStyle(active: boolean) {
   };
 }
 
-const MODEL_DEFS: { value: ModelKey | 'all'; label: string }[] = [
-  { value: 'all',    label: 'All Models' },
-  { value: 'fable',  label: 'Fable 5' },
-  { value: 'deepseek', label: 'DeepSeek V4 Pro' },
-  { value: 'deepseek-flash', label: 'DeepSeek V4 Flash' },
-  { value: 'haiku', label: 'Haiku 4.5' },
-  { value: 'opus', label: 'Opus 4.8' },
-  { value: 'opus-46', label: 'Opus 4.6' },
-  { value: 'sonnet', label: 'Sonnet 4.6' },
-];
-
-const EFFORT_DEFS: { value: EffortKey | 'all'; label: string }[] = [
-  { value: 'all',    label: 'All Efforts' },
-  { value: 'max',    label: 'Max' },
-  { value: 'high',   label: 'High' },
-  { value: 'medium', label: 'Medium' },
-  { value: 'low',    label: 'Low' },
-];
+// Canonical display order; only options actually present in the test are shown.
+const MODEL_ORDER: ModelKey[] = ['opus', 'opus-46', 'sonnet', 'haiku', 'fable', 'deepseek', 'deepseek-flash'];
+const EFFORT_ORDER: EffortKey[] = ['max', 'high', 'medium', 'low'];
 
 export function useFilterBarLogic() {
   const dispatch = useAppDispatch();
+  const testId = useAppSelector(s => s.showcase.testId);
   const modelFilter = useAppSelector(s => s.showcase.modelFilter);
   const effortFilter = useAppSelector(s => s.showcase.effortFilter);
 
-  const modelOptions = MODEL_DEFS.map(o => ({
+  const houses = testId ? housesForTest(testId) : [];
+  const presentModels = new Set(houses.map(h => h.model));
+  const presentEfforts = new Set(houses.map(h => h.effort));
+
+  const modelDefs: { value: ModelKey | 'all'; label: string }[] = [
+    { value: 'all', label: 'All Models' },
+    ...MODEL_ORDER.filter(m => presentModels.has(m)).map(m => ({ value: m, label: MODEL_META[m].label })),
+  ];
+  const effortDefs: { value: EffortKey | 'all'; label: string }[] = [
+    { value: 'all', label: 'All Efforts' },
+    ...EFFORT_ORDER.filter(e => presentEfforts.has(e)).map(e => ({ value: e, label: EFFORT_META[e].label })),
+  ];
+
+  const modelOptions = modelDefs.map(o => ({
     ...o,
     style: chipStyle(o.value === modelFilter),
     onClick: () => { dispatch(setModelFilter(o.value)); },
   }));
 
-  const effortOptions = EFFORT_DEFS.map(o => ({
+  const effortOptions = effortDefs.map(o => ({
     ...o,
     style: chipStyle(o.value === effortFilter),
     onClick: () => { dispatch(setEffortFilter(o.value)); },

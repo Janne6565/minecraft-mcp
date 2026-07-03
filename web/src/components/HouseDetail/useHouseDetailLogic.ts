@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearSelection } from '@/store/showcaseSlice';
-import { HOUSES, MODEL_META, EFFORT_META } from '@/lib/houseData';
+import { HOUSES, MODEL_META, EFFORT_META, TEST_META } from '@/lib/houseData';
 
 const UNFILLED_PIP = '#e4dfd3';
 
@@ -14,8 +14,9 @@ export function useHouseDetailLogic() {
   const house = raw ? (() => {
     const mm = MODEL_META[raw.model];
     const em = EFFORT_META[raw.effort];
+    const testName = TEST_META[raw.testId].name;
     const pips = [0, 1, 2].map(i => ({ color: i < em.pips ? mm.accent : UNFILLED_PIP }));
-    return { ...raw, mm, em, pips };
+    return { ...raw, mm, em, pips, testName };
   })() : null;
 
   const close = () => { dispatch(clearSelection()); };

@@ -3,7 +3,7 @@ import { useFilterBarLogic } from './useFilterBarLogic';
 export function FilterBar() {
   const { modelOptions, effortOptions } = useFilterBarLogic();
   return (
-    <div style={{ padding: '22px 32px 6px', display: 'flex', gap: 32, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+    <div style={{ padding: '26px 0 6px', display: 'flex', gap: 32, flexWrap: 'wrap', alignItems: 'flex-start' }}>
       <FilterGroup label="Model" options={modelOptions} />
       <FilterGroup label="Effort" options={effortOptions} />
     </div>
