@@ -33,14 +33,24 @@ export function PromptBox({
         title={clickable ? 'View full prompt' : undefined}
         style={{
           ...TERMINAL, fontSize, padding, borderRadius, maxWidth,
-          display: '-webkit-box',
-          WebkitBoxOrient: 'vertical',
-          WebkitLineClamp: lines,
           overflow: 'hidden',
           cursor: clickable ? 'pointer' : undefined,
         }}
       >
-        &gt; {prompt}
+        {/* Clamp lives on an inner element with no padding, plus a hard
+            max-height, so a partial extra line can't leak into the padding. */}
+        <div
+          style={{
+            display: '-webkit-box',
+            WebkitBoxOrient: 'vertical',
+            WebkitLineClamp: lines,
+            overflow: 'hidden',
+            maxHeight: `${lines * 1.5}em`,
+            lineHeight: 1.5,
+          }}
+        >
+          &gt; {prompt}
+        </div>
       </div>
       {open && <PromptModal prompt={prompt} onClose={() => setOpen(false)} />}
     </>
