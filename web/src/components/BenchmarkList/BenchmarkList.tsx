@@ -1,3 +1,4 @@
+import { PromptBox } from '@/components/PromptBox';
 import { useBenchmarkListLogic, type BenchmarkCard } from './useBenchmarkListLogic';
 
 export function BenchmarkList() {
@@ -62,12 +63,7 @@ function TestCard({ card }: { readonly card: BenchmarkCard }) {
           <div style={{ fontSize: 18, fontWeight: 800, color: '#2b2718' }}>{card.name}</div>
           <div style={{ fontSize: 13, color: '#8a8468', marginTop: 4, lineHeight: 1.5 }}>{card.blurb}</div>
         </div>
-        <div style={{
-          background: '#241f18', color: '#c9e4a8', fontFamily: "'JetBrains Mono', monospace",
-          fontSize: 12, borderRadius: 7, padding: '10px 12px', lineHeight: 1.5,
-        }}>
-          &gt; {card.challenge}
-        </div>
+        <PromptBox prompt={card.challenge} lines={4} fontSize={12} padding="10px 12px" borderRadius={7} />
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{
             fontFamily: "'JetBrains Mono', monospace", fontSize: 11, fontWeight: 600,

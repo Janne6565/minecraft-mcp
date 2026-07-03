@@ -1,4 +1,5 @@
 import { VoxelViewer } from '@/components/VoxelViewer';
+import { PromptBox as PromptBoxTerminal } from '@/components/PromptBox';
 import { useHouseDetailLogic } from './useHouseDetailLogic';
 
 export function HouseDetail() {
@@ -100,9 +101,7 @@ function PromptBox({ prompt }: { readonly prompt: string }) {
   return (
     <div>
       <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, textTransform: 'uppercase', letterSpacing: 1, color: '#948d75', marginBottom: 8 }}>Test Prompt</div>
-      <div style={{ background: '#241f18', color: '#c9e4a8', fontFamily: "'JetBrains Mono', monospace", fontSize: 13, borderRadius: 8, padding: '12px 14px', lineHeight: 1.5 }}>
-        &gt; {prompt}
-      </div>
+      <PromptBoxTerminal prompt={prompt} clickable lines={4} fontSize={13} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { FilterBar } from '@/components/FilterBar';
 import { HouseGrid } from '@/components/HouseGrid';
+import { PromptBox } from '@/components/PromptBox';
 import { useTestPageLogic } from './useTestPageLogic';
 
 export function TestPage() {
@@ -15,12 +16,7 @@ export function TestPage() {
           <div style={{ fontSize: 28, fontWeight: 800, color: '#2b2718' }}>{test.name}</div>
           <div style={{ fontSize: 14, color: '#8a8468', marginTop: 6, lineHeight: 1.5 }}>{test.blurb}</div>
         </div>
-        <div style={{
-          background: '#241f18', color: '#c9e4a8', fontFamily: "'JetBrains Mono', monospace",
-          fontSize: 13, borderRadius: 8, padding: '12px 16px', lineHeight: 1.5, maxWidth: 480,
-        }}>
-          &gt; {test.challenge}
-        </div>
+        <PromptBox prompt={test.challenge} clickable lines={4} fontSize={13} padding="12px 16px" maxWidth={480} />
       </div>
 
       <FilterBar />
